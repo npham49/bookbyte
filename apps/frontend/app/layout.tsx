@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/navbars/header";
+import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "BookBytes",
@@ -22,17 +22,12 @@ export default function RootLayout({
     >
       <html lang="en" suppressHydrationWarning>
         <body>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <Providers>
             <Header />
-            <main className="container max-w-screen-xl mx-auto">
+            <main className="container max-w-screen-lg mx-auto">
               {children}
             </main>
-          </ThemeProvider>
+          </Providers>
         </body>
       </html>
     </ClerkProvider>
