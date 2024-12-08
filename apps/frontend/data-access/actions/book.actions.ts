@@ -39,7 +39,7 @@ export const addNewBook = async (formData: FormData) => {
     fileKey: fileName,
   }).catch(async (error) => {
     console.error(error);
-    const deleteFile = await deleteFileS3(fileName);
+    await deleteFileS3(fileName);
     throw new Error("Failed to add book");
   });
 

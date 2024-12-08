@@ -1,5 +1,6 @@
 import { CronJob } from "cron";
 import { getFirstBookAndSplit } from "./jobs/booksplitting.job";
+import { summarizeJob } from "./jobs/summarize.job";
 
 let running = false;
 
@@ -13,6 +14,7 @@ async function splittingOperation() {
   const d = new Date();
   console.log("At Ten Minutes:", d);
   await getFirstBookAndSplit();
+  await summarizeJob();
   running = false;
 }
 

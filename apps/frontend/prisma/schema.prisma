@@ -37,11 +37,24 @@ model Chapter {
   fileKey   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  summary   Summary?
+}
+
+model Summary {
+  id        String   @id @default(cuid())
+  chapterId String   @unique
+  chapter   Chapter  @relation(fields: [chapterId], references: [id])
+  title     String
+  shortForm Json[]
+  longForm  Json[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum BookStatus {
   UPLOADED
   SPLITTING
+  SPLIT
   SUMMARIZING
   READY
   ERROR

@@ -10,6 +10,9 @@ import {
 import { uploadFileToS3 } from "../libs/s3/upload-file";
 import { createChapter } from "../services/chapter.service";
 
+/**
+ * This job would get the first uploaded book from the database, split it into chapters, and save the chapters to the database.
+ */
 export async function getFirstBookAndSplit() {
   const book = await getFirstUploadedBook();
   if (!book) {
@@ -60,7 +63,7 @@ export async function getFirstBookAndSplit() {
       `${book.fileKey}/chapter-${index}.txt`
     );
 
-    const createdChapter = await createChapter({
+    await createChapter({
       fileKey: fileName,
       book: {
         connect: {
@@ -75,7 +78,7 @@ export async function getFirstBookAndSplit() {
   Promise.all(chapterPromises)
     .then(async () => {
       console.log("All chapters uploaded");
-      await setStatus(book.id, "READY");
+      await setStatus(book.id, "SPLIT");
     })
     .catch((error) => {
       console.error("Error uploading chapters", error);

@@ -1,0 +1,13 @@
+{
+  "name": "bookbyte",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "schema-sync": "node scripts/replace-prisma-schemas.js && cd ./apps/cron && npm run db:generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

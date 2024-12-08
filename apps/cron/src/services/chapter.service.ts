@@ -6,3 +6,11 @@ export const createChapter = async (chapter: Prisma.ChapterCreateInput) => {
     data: chapter,
   });
 };
+
+export const getChaptersFromBookId = async (bookId: string) => {
+  return await prisma.chapter.findMany({
+    where: {
+      bookId,
+    },
+  });
+};
