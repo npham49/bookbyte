@@ -12,10 +12,10 @@ export function MainNav({
       {...props}
     >
       <Link
-        href="/dashboard"
+        href="/read"
         className="text-sm font-medium transition-colors hover:text-primary"
       >
-        Dashboard
+        Reading
       </Link>
       <Link
         href="/admin"
