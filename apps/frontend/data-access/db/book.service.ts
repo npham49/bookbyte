@@ -16,6 +16,13 @@ export const getAllBooks = async () => {
   return response;
 };
 
+export const getBookById = async (id: string) => {
+  const response = await prisma.book.findFirst({
+    where: { id },
+  });
+  return response;
+};
+
 export const setBookStatus = async (id: string, status: BookStatus) => {
   const response = await prisma.book.update({
     where: { id },

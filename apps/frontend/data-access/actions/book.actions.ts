@@ -3,7 +3,7 @@
 import { uploadFileToS3 } from "@/lib/s3/upload-file";
 import { newBookSchema } from "@/lib/zod-schemas/book";
 import { auth } from "@clerk/nextjs/server";
-import { createNewBook, getAllBooks } from "../db/book.service";
+import { createNewBook, getAllBooks, getBookById } from "../db/book.service";
 import { revalidatePath } from "next/cache";
 import { deleteFileS3 } from "@/lib/s3/delete-file";
 
@@ -58,6 +58,17 @@ export const getAllBooksAction = async () => {
     throw new Error("Unauthorized");
   }
   const response = await getAllBooks();
+  return {
+    data: response,
+  };
+};
+
+export const getBookByIdAction = async (id: string) => {
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+  const response = await getBookById(id);
   return {
     data: response,
   };
