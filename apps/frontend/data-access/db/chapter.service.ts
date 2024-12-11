@@ -17,3 +17,15 @@ export const getChapterCountFromBook = async (bookId: string) => {
   });
   return response;
 };
+
+export const getChapterAndSummaryByBookId = async (bookId: string) => {
+  const response = await prisma.chapter.findMany({
+    where: { bookId },
+    include: {
+      summary: {
+        select: { id: true, title: true, chapterId: true, updatedAt: true },
+      },
+    },
+  });
+  return response;
+};

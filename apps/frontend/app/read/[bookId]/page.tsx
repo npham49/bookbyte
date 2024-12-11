@@ -1,5 +1,7 @@
 import { getBookByIdAction } from "@/data-access/actions/book.actions";
-import BookSummaryContainer from "./book-summaries-container";
+import { BookHeader } from "./book-header";
+import { ChapterList } from "./chapter-list";
+import { getChapterAndSummaryByBookIdAction } from "@/data-access/actions/chapter.action";
 
 export default async function Page({
   params,
@@ -10,8 +12,16 @@ export default async function Page({
 
   const book = await getBookByIdAction(bookId);
 
-  if (!book.data) {
+  const chapters = await getChapterAndSummaryByBookIdAction(bookId);
+
+  if (!book.data || !chapters.data) {
     return <div>Error</div>;
   }
-  return <BookSummaryContainer book={book.data} />;
+
+  return (
+    <div className="min-h-screen">
+      <BookHeader book={book.data} />
+      <ChapterList chapters={chapters.data} />
+    </div>
+  );
 }

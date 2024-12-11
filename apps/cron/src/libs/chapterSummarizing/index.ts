@@ -45,7 +45,7 @@ export const summarizeChapter = async (chapter: Chapter, book: Book) => {
     - longform: an array of 3 json object with the following properties:
       - chapter: the chapter number
       - index: the position of the summary in the chapter
-      - text: the text of the summary, MUST BE 300 words long
+      - text: the text of the summary, MUST BE 200 words long, MUST BE markdown with bolding on keywords
     - shortform: an array of 3 json objects with the following properties:
       - chapter: the chapter number
       - index: the position of the summary in the chapter
@@ -79,7 +79,7 @@ export const summarizeChapter = async (chapter: Chapter, book: Book) => {
     - longform: an array of 3 json object with the following properties:
       - chapter: the chapter number
       - index: the position of the summary in the chapter
-      - text: the text of the summary, MUST BE 300 words long
+      - text: the text of the summary, MUST BE 200 words long, MUST BE markdown with bolding on keywords
     - shortform: an array of 3 json objects with the following properties:
       - chapter: the chapter number
       - index: the position of the summary in the chapter

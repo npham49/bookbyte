@@ -4,14 +4,21 @@ import { getChapterAndSummaryByNumberAndBookIdAction } from "@/data-access/actio
 import { useQuery } from "@tanstack/react-query";
 import ChapterSummaryCarousel from "./chapter-summary-carousel";
 import { Book } from "@prisma/client";
+import Link from "next/link";
 
-export default function BookSummaryContainer({ book }: { book: Book }) {
+export default function BookSummaryContainer({
+  book,
+  chapterNumber,
+}: {
+  book: Book;
+  chapterNumber: number;
+}) {
   const { data, isPending, isError } = useQuery({
-    queryKey: ["chapter", book.id, 0],
+    queryKey: ["chapter", book.id, chapterNumber],
     queryFn: async () => {
       const response = await getChapterAndSummaryByNumberAndBookIdAction(
         book.id,
-        1
+        Number(chapterNumber)
       );
       return response.data;
     },
@@ -27,9 +34,11 @@ export default function BookSummaryContainer({ book }: { book: Book }) {
 
   return (
     <div>
-      <h1>
-        {book.name} - {book.author}
-      </h1>
+      <Link href={`/read/${book.id}`}>
+        <h1 className="text-3xl font-bold text-center absolute top-20 left-0 right-0 z-10">
+          {book.name} - {book.author}
+        </h1>
+      </Link>
       <ChapterSummaryCarousel summary={data.summary} chapter={data} />
     </div>
   );

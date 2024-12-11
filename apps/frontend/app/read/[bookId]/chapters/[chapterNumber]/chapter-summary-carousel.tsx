@@ -82,10 +82,10 @@ export default function ChapterSummaryCarousel({
         className="h-full overflow-y-auto overflow-hidden snap-y snap-mandatory"
         style={{ scrollSnapType: "y mandatory" }}
       >
-        <h1 className="text-3xl font-bold text-center absolute top-32 left-0 right-0 z-10">
+        <h1 className="text-xl font-bold text-center absolute top-16 left-0 right-0 z-10">
           {chapter.number} - {summary.title}
         </h1>
-        {(summary.shortForm as unknown as SummaryItem[]).map(
+        {(summary.longForm as unknown as SummaryItem[]).map(
           (summary, index) => (
             <div key={index} className="h-full snap-start">
               <ChapterSummaryCard

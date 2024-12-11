@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import {
+  getChapterAndSummaryByBookId,
   getChapterByNumberAndBookId,
   getChapterCountFromBook,
 } from "../db/chapter.service";
@@ -30,6 +31,19 @@ export const getChapterAndSummaryByNumberAndBookIdAction = async (
   }
 
   const response = await getChapterByNumberAndBookId(bookId, number);
+  return {
+    data: response,
+  };
+};
+
+export const getChapterAndSummaryByBookIdAction = async (bookId: string) => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const response = await getChapterAndSummaryByBookId(bookId);
   return {
     data: response,
   };
