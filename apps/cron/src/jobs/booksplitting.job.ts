@@ -60,11 +60,12 @@ export async function getFirstBookAndSplit() {
 
     const fileName = await uploadFileToS3(
       Buffer.from(chapter),
-      `${book.fileKey}/chapter-${index}.txt`
+      `${book.fileKey}/chapter-${index + 1}.txt`
     );
 
     await createChapter({
       fileKey: fileName,
+      number: index + 1,
       book: {
         connect: {
           id: book.id,

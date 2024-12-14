@@ -22,20 +22,23 @@ export const summarizeJob = async () => {
     }
 
     await setStatus(book.id, "SUMMARIZING");
-    const chapter = chapters[0];
 
-    const summary = await summarizeChapter(chapter, book);
+    const summaryPromises = chapters.map(async (chapter) => {
+      const summary = await summarizeChapter(chapter, book);
 
-    await createSummaryChapter({
-      shortForm: summary.shortform,
-      longForm: summary.longform,
-      title: summary.title,
-      chapter: {
-        connect: {
-          id: chapter.id,
+      await createSummaryChapter({
+        shortForm: summary.shortform,
+        longForm: summary.longform,
+        title: summary.title,
+        chapter: {
+          connect: {
+            id: chapter.id,
+          },
         },
-      },
+      });
     });
+
+    await Promise.all(summaryPromises);
 
     await setStatus(book.id, "READY");
   } catch (error) {

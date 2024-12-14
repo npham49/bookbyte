@@ -58,6 +58,7 @@ export default function ChapterSummaryCarousel({
 
     container.addEventListener("wheel", handleWheel, { passive: false });
     return () => container.removeEventListener("wheel", handleWheel);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScrolling, activeIndex]);
 
   useEffect(() => {
